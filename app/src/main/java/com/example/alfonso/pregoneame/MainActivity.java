@@ -1,6 +1,7 @@
 package com.example.alfonso.pregoneame;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +32,11 @@ public class MainActivity extends Activity {
         buttonAceptar.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-               //Crear un nuevo Inten e ir a la otra pantalla
+                if(editTextCodigoPostalResult.getText().toString().equals("06870")) {
+                    Intent acti = new Intent(MainActivity.this, ToDoManagerActivity.class);
+                    startActivity(acti);
+                }
+
             }
         });
 

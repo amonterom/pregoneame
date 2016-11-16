@@ -76,7 +76,7 @@
             android:layout_alignEnd="@+id/editTextCodigoPostalResult" />
 
         <TextView
-            android:text="Pregoneame !!!"
+            android:text="Pregoneame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewPregoneame"
