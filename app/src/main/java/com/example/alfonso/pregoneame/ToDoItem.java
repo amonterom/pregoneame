@@ -12,18 +12,15 @@ import java.util.Locale;
 public class ToDoItem {
 
 	public static final String ITEM_SEP = System.getProperty("line.separator");
-
-	public enum Priority {
-		LOW, MED, HIGH
+	public enum Tema {
+		Deporte,Cultura,Festejo,Otros
 	};
 
-	public enum Status {
-		NOTDONE, DONE
-	};
+
 
 	public final static String TITLE = "title";
-	public final static String PRIORITY = "priority";
-	public final static String STATUS = "status";
+	public final static String DESCRIPCION = "descripcion";
+	public final static String TEMA = "tema";
 	public final static String DATE = "date";
 	public final static String FILENAME = "filename";
 
@@ -31,14 +28,14 @@ public class ToDoItem {
 			"yyyy-MM-dd HH:mm:ss", Locale.US);
 
 	private String mTitle = new String();
-	private Priority mPriority = Priority.LOW;
-	private Status   mStatus = Status.NOTDONE;
+	private Tema mTema = Tema.Otros;
+	private String mDes = new String();
 	private Date mDate = new Date();
 
-	ToDoItem(String title, Priority priority, Status status, Date date) {
+	ToDoItem(String title,String desc,Tema tema, Date date) {
 		this.mTitle = title;
-		this.mPriority = priority;
-		this.mStatus = status;
+		this.mDes = desc;
+		this.mTema = tema;
 		this.mDate = date;
 	}
 
@@ -47,8 +44,9 @@ public class ToDoItem {
 	ToDoItem(Intent intent) {
 
 		mTitle = intent.getStringExtra(ToDoItem.TITLE);
-		mPriority = Priority.valueOf(intent.getStringExtra(ToDoItem.PRIORITY));
-		mStatus = Status.valueOf(intent.getStringExtra(ToDoItem.STATUS));
+		mDes = intent.getStringExtra(ToDoItem.DESCRIPCION);
+		mTema = Tema.valueOf(intent.getStringExtra(ToDoItem.TEMA));
+
 
 		try {
 			mDate = ToDoItem.FORMAT.parse(intent.getStringExtra(ToDoItem.DATE));
@@ -65,21 +63,27 @@ public class ToDoItem {
 		mTitle = title;
 	}
 
-	public Priority getPriority() {
-		return mPriority;
+
+	public String getDescripcion() {
+		return mDes;
 	}
 
-	public void setPriority(Priority priority) {
-		mPriority = priority;
+	public void setDescripcion(String desc) {
+		mDes = desc;
 	}
 
-	public Status getStatus() {
-		return mStatus;
+	public Tema getTema() {
+		return mTema;
 	}
 
-	public void setStatus(Status status) {
-		mStatus = status;
+	public void setTema(Tema tema) {
+		mTema = tema;
 	}
+
+
+
+
+
 
 	public Date getDate() {
 		return mDate;
@@ -92,24 +96,25 @@ public class ToDoItem {
 	// Take a set of String data values and 
 	// package them for transport in an Intent
 
-	public static void packageIntent(Intent intent, String title,
-									 Priority priority, Status status, String date) {
+	public static void packageIntent(Intent intent, String title,String des,Tema tema,
+									  String date) {
 
 		intent.putExtra(ToDoItem.TITLE, title);
-		intent.putExtra(ToDoItem.PRIORITY, priority.toString());
-		intent.putExtra(ToDoItem.STATUS, status.toString());
+
+		intent.putExtra(ToDoItem.DESCRIPCION, des);
+		intent.putExtra(ToDoItem.TEMA, tema.toString());
 		intent.putExtra(ToDoItem.DATE, date);
 	
 	}
 
 	public String toString() {
-		return mTitle + ITEM_SEP + mPriority + ITEM_SEP + mStatus + ITEM_SEP
+		return mTitle + ITEM_SEP + mDes + ITEM_SEP + mTema + ITEM_SEP
 				+ FORMAT.format(mDate);
 	}
 
 	public String toLog() {
-		return "Title:" + mTitle + ITEM_SEP + "Priority:" + mPriority
-				+ ITEM_SEP + "Status:" + mStatus + ITEM_SEP + "Date:"
+		return "Title:" + mTitle + ITEM_SEP + "Descripcion:" + mDes
+			+ ITEM_SEP + "Tema:" + mTema + ITEM_SEP  + "Date:"
 				+ FORMAT.format(mDate);
 	}
 

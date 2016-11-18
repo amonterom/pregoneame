@@ -15,7 +15,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
         <TextView
@@ -32,7 +32,7 @@
             android:layout_marginTop="23dp" />
 
         <TextView
-            android:text="     Si usted desea estar en todo momento informado sobre los eventos de su ciudad introduzca su código postal y pulse aceptar"
+            android:text="     Si usted desea estar en todo momento informado sobre los eventos de su ciudad introduzca su código postal y pulse aceptar. En caso de ser personal de la administración inicie sesión como administrador."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewIntroduccion"
@@ -64,17 +64,6 @@
             android:layout_below="@+id/textViewCodigoPostal"
             android:layout_centerHorizontal="true" />
 
-        <Button
-            android:text="ACEPTAR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonAceptar"
-            android:elevation="0dp"
-            android:layout_below="@+id/editTextCodigoPostalResult"
-            android:layout_alignStart="@+id/editTextCodigoPostalResult"
-            android:layout_marginTop="24dp"
-            android:layout_alignEnd="@+id/editTextCodigoPostalResult" />
-
         <TextView
             android:text="Pregoneame"
             android:layout_width="wrap_content"
@@ -93,6 +82,27 @@
             android:id="@+id/imageViewPregon"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/buttonAceptar" />
+
+        <Button
+            android:text="ACEPTAR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonAceptar"
+            android:elevation="0dp"
+            android:layout_below="@+id/editTextCodigoPostalResult"
+            android:layout_toEndOf="@+id/imageViewPregon"
+            android:background="@android:color/holo_blue_bright" />
+
+        <Button
+            android:text="Iniciar Sesion como Administrador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonAdmin"
+            android:textSize="10sp"
+            android:background="@android:color/holo_orange_dark"
+            android:layout_alignBaseline="@+id/buttonAceptar"
+            android:layout_alignBottom="@+id/buttonAceptar"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 

@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
     private TextView textViewCodigoPostal;
     private EditText editTextCodigoPostalResult;
     private Button buttonAceptar;
+    private Button buttonAdmin;
     private ImageView imageViewPregon;
 
     private void inicializarComponentes() {
@@ -32,10 +33,22 @@ public class MainActivity extends Activity {
         buttonAceptar.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(editTextCodigoPostalResult.getText().toString().equals("06870")) {
+                //if(editTextCodigoPostalResult.getText().toString().equals("06870")) {
                     Intent acti = new Intent(MainActivity.this, ToDoManagerActivity.class);
                     startActivity(acti);
-                }
+                //}
+
+            }
+        });
+        buttonAdmin = (Button) findViewById(R.id.buttonAdmin);
+
+        buttonAdmin.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //if(editTextCodigoPostalResult.getText().toString().equals("06870")) {
+                Intent acti2 = new Intent(MainActivity.this, Login.class);
+                startActivity(acti2);
+                //}
 
             }
         });

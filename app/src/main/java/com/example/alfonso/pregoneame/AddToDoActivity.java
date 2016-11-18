@@ -1,5 +1,6 @@
 package com.example.alfonso.pregoneame;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -22,9 +23,8 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.example.alfonso.pregoneame.ToDoItem.Priority;
-import com.example.alfonso.pregoneame.ToDoItem.Status;
 
+import com.example.alfonso.pregoneame.ToDoItem.Tema;
 public class AddToDoActivity extends AppCompatActivity {
 	
 	// 7 days in milliseconds - 7 * 24 * 60 * 60 * 1000
@@ -39,12 +39,10 @@ public class AddToDoActivity extends AppCompatActivity {
 
 	
 	private Date mDate;
-	private RadioGroup mPriorityRadioGroup;
-	private RadioGroup mStatusRadioGroup;
 	private EditText mTitleText;
-	private RadioButton mDefaultStatusButton;
-	private RadioButton mDefaultPriorityButton;
-
+	private EditText mDesText;
+	private RadioGroup mTemaRadioGroup;
+	private RadioButton mDefaultTemaButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,10 +51,11 @@ public class AddToDoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 		mTitleText = (EditText) findViewById(R.id.title);
-		mDefaultStatusButton = (RadioButton) findViewById(R.id.statusNotDone);
-		mDefaultPriorityButton = (RadioButton) findViewById(R.id.medPriority);
-		mPriorityRadioGroup = (RadioGroup) findViewById(R.id.priorityGroup);
-		mStatusRadioGroup = (RadioGroup) findViewById(R.id.statusGroup);
+		mDesText = (EditText) findViewById(R.id.Descripcion);
+		mDefaultTemaButton = (RadioButton) findViewById(R.id.Otros);
+		mTemaRadioGroup = (RadioGroup) findViewById(R.id.temaGroup);
+
+
 		dateView = (TextView) findViewById(R.id.date);
 		timeView = (TextView) findViewById(R.id.time);
 
@@ -115,8 +114,8 @@ setResult(RESULT_CANCELED, data);
 				//TODO - Reset data fields to default values
 
 			mTitleText.setText("");
-				mPriorityRadioGroup.check(mDefaultPriorityButton.getId());
-				mStatusRadioGroup.check(mDefaultStatusButton.getId());
+			mDesText.setText("");
+				mTemaRadioGroup.check(mDefaultTemaButton.getId());
 				setDefaultDateTime();
 			
 			}
@@ -133,22 +132,21 @@ setResult(RESULT_CANCELED, data);
 
 				// Gather ToDoItem data  
 				
-				//TODO - Get Priority
-	Priority priority=getPriority();
-
-				//TODO -  Get Status
-	Status status = getStatus();
+				//TODO - Get Tema
+Tema tema = getTema();
 
 				//TODO -  Title
-	String titleString = mTitleText.getText().toString();
+	String title = mTitleText.getText().toString();
+				//TODO -  DEscripcion
+				String des = mDesText.getText().toString();
 
 				//TODO - Date
-	String fullDate = dateString + " " + timeString;
+				String fullDate = dateString + " " + timeString;
 
 				//TODO - Package ToDoItem data into an Intent
 
 				Intent data = new Intent();
-				ToDoItem.packageIntent(data, titleString, priority, status, fullDate);
+				ToDoItem.packageIntent(data, title, des,tema, fullDate);
 				//TODO - return data Intent and finish			
 
 
@@ -224,33 +222,6 @@ DialogFragment dateD = new DatePickerFragment();
 		timeString = hour + ":" + min + ":00";
 	}
 
-	private Priority getPriority() {
-
-		switch (mPriorityRadioGroup.getCheckedRadioButtonId()) {
-		case R.id.lowPriority: {
-			return Priority.LOW;
-		}
-		case R.id.highPriority: {
-			return Priority.HIGH;
-		}
-		default: {
-			return Priority.MED;
-		}
-		}
-	}
-
-	private Status getStatus() {
-
-		switch (mStatusRadioGroup.getCheckedRadioButtonId()) {
-		case R.id.statusDone: {
-			return Status.DONE;
-		}
-		default: {
-			return Status.NOTDONE;
-		}
-		}
-	}
-
 	// DialogFragment used to pick a ToDoItem deadline date
 
 	public static class DatePickerFragment extends DialogFragment implements
@@ -312,6 +283,24 @@ DialogFragment dateD = new DatePickerFragment();
 			e.printStackTrace();
 		}
 		Log.i(TAG, msg);
+	}
+	private Tema getTema() {
+
+		switch (mTemaRadioGroup.getCheckedRadioButtonId()) {
+			case R.id.Deporte: {
+				return Tema.Deporte;
+			}
+			case R.id.Cultura: {
+				return Tema.Cultura;
+			}
+
+			case R.id.Festejo: {
+				return Tema.Festejo;
+			}
+			default: {
+				return Tema.Otros;
+			}
+		}
 	}
 
 }

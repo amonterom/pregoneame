@@ -72,8 +72,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView title;
-        private CheckBox statusView;
-        private TextView priorityView;
+        private TextView descripcion;
+        private TextView temaView;
         private TextView dateView;
 
         public ViewHolder(View itemView) {
@@ -81,8 +81,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
             //TODO - Get the references to every widget of the Item View
             title= (TextView) itemView.findViewById(R.id.titleView);
-            statusView= (CheckBox) itemView.findViewById(R.id.statusCheckBox);
-            priorityView= (TextView) itemView.findViewById(R.id.priorityView);
+            descripcion= (TextView) itemView.findViewById(R.id.DescripcionView);
+            temaView= (TextView) itemView.findViewById(R.id.temaView);
             dateView= (TextView) itemView.findViewById(R.id.dateView);
         }
 
@@ -90,18 +90,20 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
             //TODO - Display Title in TextView
             title.setText(toDoItem.getTitle());
-        priorityView.setText(toDoItem.getPriority().toString());
+            descripcion.setText(toDoItem.getDescripcion());
+            temaView.setText(toDoItem.getTema().toString());
+
             //TODO - Display Priority in a TextView
             dateView.setText(ToDoItem.FORMAT.format(toDoItem.getDate()));
 
             // TODO - Display Time and Date.
             // Hint - use ToDoItem.FORMAT.format(toDoItem.getDate()) to get date and time String
-statusView.setChecked(toDoItem.getStatus() == ToDoItem.Status.DONE);
+            //statusView.setChecked(toDoItem.getStatus() == ToDoItem.Status.DONE);
 
 
             // TODO - Set up Status CheckBox
 
-
+/*
             statusView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView,
@@ -116,7 +118,7 @@ statusView.setChecked(toDoItem.getStatus() == ToDoItem.Status.DONE);
         toDoItem.setStatus(ToDoItem.Status.NOTDONE);
 
                 }});
-
+*/
 
             itemView.setOnClickListener(new View.OnClickListener() {
 

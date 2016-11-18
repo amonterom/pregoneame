@@ -2,7 +2,6 @@ package com.example.alfonso.pregoneame;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -13,10 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -29,11 +28,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.Date;
-
-import com.example.alfonso.pregoneame.ToDoItem.Priority;
-import com.example.alfonso.pregoneame.ToDoItem.Status;
-
-public class ToDoManagerActivity extends AppCompatActivity    implements NavigationView.OnNavigationItemSelectedListener {
+import com.example.alfonso.pregoneame.ToDoItem.Tema;
+public class ToDoManagerActivity extends AppCompatActivity   implements NavigationView.OnNavigationItemSelectedListener{
 
     // Add a ToDoItem Request Code
     private static final int ADD_TODO_ITEM_REQUEST = 0;
@@ -56,15 +52,6 @@ public class ToDoManagerActivity extends AppCompatActivity    implements Navigat
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,18 +62,14 @@ public class ToDoManagerActivity extends AppCompatActivity    implements Navigat
             }
         });
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-
-
-
-
-
-
-
-
-
-
-
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         //TODO - Get a reference to the RecyclerView
         mRecyclerView=(RecyclerView) findViewById(R.id.my_recycler_view);
@@ -191,16 +174,15 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
             reader = new BufferedReader(new InputStreamReader(fis));
 
             String title = null;
-            String priority = null;
-            String status = null;
+            String descri= null;
+            String tema = null;
             Date date = null;
 
             while (null != (title = reader.readLine())) {
-                priority = reader.readLine();
-                status = reader.readLine();
+                descri = reader.readLine();
+                tema = reader.readLine();
                 date = ToDoItem.FORMAT.parse(reader.readLine());
-                mAdapter.add(new ToDoItem(title, Priority.valueOf(priority),
-                        Status.valueOf(status), date));
+                mAdapter.add(new ToDoItem(title,descri,Tema.valueOf(tema), date));
             }
 
         } catch (FileNotFoundException e) {
@@ -241,6 +223,7 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
             }
         }
     }
+
 
     private void log(String msg) {
         try {
@@ -290,8 +273,11 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_deporte) {
+        if (id == R.id.log){
+            Intent acti = new Intent(ToDoManagerActivity.this, Login.class);
+            startActivity(acti);
+        }
+        else if (id == R.id.nav_deporte) {
             // Handle the camera action
         } else if (id == R.id.nav_cultura) {
 
