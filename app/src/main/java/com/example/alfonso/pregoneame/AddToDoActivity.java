@@ -151,7 +151,7 @@ Tema tema = getTema();
 
 
 				setResult(RESULT_OK, data);
-				finish();;
+				finish();
 				
 			}
 		});

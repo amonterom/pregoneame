@@ -1,6 +1,5 @@
 package com.example.alfonso.pregoneame;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,9 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,11 +31,11 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.Date;
 import com.example.alfonso.pregoneame.ToDoItem.Tema;
-public class ToDoManagerActivity extends AppCompatActivity   {
+public class ToDoManagerActivityCliente extends AppCompatActivity   {
 
     // Add a ToDoItem Request Code
     private static final int ADD_TODO_ITEM_REQUEST = 0;
-
+    public static String nuevalinea = System.getProperty("line.separator");
     private static final String FILE_NAME = "TodoManagerActivityData6.txt";
     private static final String TAG = "Lab-UserInterface";
 
@@ -55,33 +51,15 @@ public class ToDoManagerActivity extends AppCompatActivity   {
     private Button buttonCultura;
     private Button buttonFestejo;
     private Button buttonOtros;
-    public static String nuevalinea = System.getProperty("line.separator");
+    private Button buttonSalir;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_to_do_manager);
+        setContentView(R.layout.activity_to_do_manager_cliente);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO - Attach Listener to FloatingActionButton. Implement onClick()
-        Intent act= new Intent(ToDoManagerActivity.this, AddToDoActivity.class);
-                startActivityForResult(act, ADD_TODO_ITEM_REQUEST);
-            }
-        });
-
-        FloatingActionButton fHome = (FloatingActionButton) findViewById(R.id.fHome);
-        fHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO - Attach Listener to FloatingActionButton. Implement onClick()
-                Intent act2= new Intent(ToDoManagerActivity.this, Login.class);
-                startActivity(act2);
-            }
-        });
 
         //TODO - Get a reference to the RecyclerView
         mRecyclerView=(RecyclerView) findViewById(R.id.my_recycler_view);
@@ -96,39 +74,26 @@ public class ToDoManagerActivity extends AppCompatActivity   {
         mRecyclerView.setLayoutManager(mLayoutManager);
         //TODO - Create a new Adapter for the RecyclerView
         // specify an adapter (see also next example)
-mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
-    @Override public void onItemClick(ToDoItem item){
-       // Snackbar.make(ToDoManagerActivity.this.getCurrentFocus(), "Item " + item.getTitle()+ " Clicked", Snackbar.LENGTH_LONG).show();
+        mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
+            @Override public void onItemClick(ToDoItem item){
+                Snackbar.make(ToDoManagerActivityCliente.this.getCurrentFocus(), "Titulo: " + item.getTitle() + nuevalinea + "Tema: " + item.getTema()+ nuevalinea +"Descripcion: " + nuevalinea + item.getDescripcion() +  nuevalinea + "Fecha: " + item.getDate(), Snackbar.LENGTH_LONG).show();
+            }
 
-
-       // Toast toast = Toast.makeText(getApplicationContext(), "Titulo: " + item.getTitle() + nuevalinea + "Tema: " + item.getTema()+ nuevalinea +"Descripcion: " + nuevalinea + item.getDescripcion() +  nuevalinea + "Fecha: " + item.getDate(), Toast.LENGTH_SHORT);
-        //toast.show();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(ToDoManagerActivity.this);
-        builder.setMessage("Tema: " + item.getTema()+ nuevalinea +"Descripcion: " + nuevalinea + item.getDescripcion() +  nuevalinea + "Fecha: " + item.getDate())
-                .setTitle("Titulo: "+ item.getTitle())
-                .setCancelable(false)
-                .setNeutralButton("Aceptar",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alert = builder.create();
-        alert.show();
-
-
-
-
-
-
-
-
-    }
-
-});
+        });
         //TODO - Attach the adapter to the RecyclerView
-    mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
+
+        buttonSalir = (Button) findViewById(R.id.buttonSalir);
+
+        buttonSalir.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent act3= new Intent(ToDoManagerActivityCliente.this, MainActivity.class);
+                startActivity(act3);
+            }
+        });
+
+
 
 
         buttonFestejo = (Button) findViewById(R.id.buttonFestejo);
@@ -147,8 +112,8 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
         buttonTodo.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                    mAdapter.clear();
-                    loadItems();
+                mAdapter.clear();
+                loadItems();
             }
         });
         buttonDeporte = (Button) findViewById(R.id.buttonDeporte);
@@ -156,7 +121,6 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
         buttonDeporte.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-
                 mAdapter.clear();
                 loadItemsDeporte();
             }
@@ -166,7 +130,6 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
         buttonCultura.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-
                 mAdapter.clear();
                 loadItemsCultura();
             }
@@ -176,10 +139,8 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
         buttonOtros.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-
                 mAdapter.clear();
                 loadItemsOtros();
-
             }
         });
 
@@ -218,12 +179,13 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
         if (mAdapter.getItemCount() == 0)
 
             loadItems();
-        saveItems();
+            saveItems();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
 
         mAdapter.clear();
         loadItems();
@@ -235,17 +197,17 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        menu.add(Menu.NONE, MENU_DELETE, Menu.NONE, "Delete all");
-        menu.add(Menu.NONE, MENU_DUMP, Menu.NONE, "Dump to log");
+//        menu.add(Menu.NONE, MENU_DELETE, Menu.NONE, "Delete all");
+ //       menu.add(Menu.NONE, MENU_DUMP, Menu.NONE, "Dump to log");
         return true;
     }
-
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case MENU_DELETE:
                 mAdapter.clear();
-                saveItems();
                 return true;
             case MENU_DUMP:
                 dump();
@@ -254,7 +216,7 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
                 return super.onOptionsItemSelected(item);
         }
     }
-
+*/
     private void dump() {
 
         for (int i = 0; i < mAdapter.getItemCount(); i++) {

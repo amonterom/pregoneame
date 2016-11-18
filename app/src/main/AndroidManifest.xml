@@ -25,6 +25,7 @@
         <activity android:name=".AddToDoActivity" />
         <activity android:name=".ToDoManagerActivity" />
         <activity android:name=".Login" />
+        <activity android:name=".ToDoManagerActivityCliente"></activity>
     </application>
 
 </manifest>

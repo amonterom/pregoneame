@@ -33,6 +33,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         //TODO - Inflate the View for every element
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.todo_item, parent, false);
 
+
         return new ViewHolder(v);
     }
 
@@ -62,6 +63,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         notifyDataSetChanged();
 
     }
+
+
 
     public Object getItem(int pos) {
 

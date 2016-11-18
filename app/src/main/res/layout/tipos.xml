@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app2="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <Button
+        android:text="DEPORTES"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:id="@+id/buttonDeporte"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored" />
+
+    <Button
+        android:text="FESTEJOS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonFestejo"
+        android:layout_alignBaseline="@+id/buttonDeporte"
+        android:layout_alignBottom="@+id/buttonDeporte"
+        android:layout_toEndOf="@+id/buttonDeporte"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog" />
+
+    <Button
+        android:text="OTROS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonOtros"
+        android:layout_alignBaseline="@+id/buttonCultura"
+        android:layout_alignBottom="@+id/buttonCultura"
+        android:layout_alignParentEnd="true"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored" />
+
+    <Button
+        android:text="CULTURA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCultura"
+        android:layout_alignTop="@+id/buttonFestejo"
+        android:layout_toStartOf="@+id/buttonOtros"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored" />
+
+    <Button
+        android:text="Todos"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/buttonTodos"
+        android:background="@color/cardview_light_background"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/buttonFestejo" />
+
+
+</RelativeLayout>

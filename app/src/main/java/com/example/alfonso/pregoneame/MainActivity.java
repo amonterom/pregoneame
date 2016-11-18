@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //if(editTextCodigoPostalResult.getText().toString().equals("06870")) {
-                    Intent acti = new Intent(MainActivity.this, ToDoManagerActivity.class);
+                    Intent acti = new Intent(MainActivity.this, ToDoManagerActivityCliente.class);
                     startActivity(acti);
                 //}
 

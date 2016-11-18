@@ -40,7 +40,8 @@ public class Login extends AppCompatActivity {
         buttonAceptar.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                Intent acti2 = new Intent(Login.this, ToDoManagerActivity.class);
+                startActivity(acti2);
 
             }
         });
