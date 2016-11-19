@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -33,10 +34,17 @@ public class MainActivity extends Activity {
         buttonAceptar.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //if(editTextCodigoPostalResult.getText().toString().equals("06870")) {
+                if(editTextCodigoPostalResult.getText().toString().equals("06870")) {
                     Intent acti = new Intent(MainActivity.this, ToDoManagerActivityCliente.class);
                     startActivity(acti);
-                //}
+                }else{
+
+                    Toast toast = Toast.makeText(getApplicationContext(),"Código postal no disponible en nuestra BBDD", Toast.LENGTH_LONG);
+                    toast.show();
+
+
+                }
+
 
             }
         });
@@ -45,10 +53,9 @@ public class MainActivity extends Activity {
         buttonAdmin.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //if(editTextCodigoPostalResult.getText().toString().equals("06870")) {
+
                 Intent acti2 = new Intent(MainActivity.this, Login.class);
                 startActivity(acti2);
-                //}
 
             }
         });

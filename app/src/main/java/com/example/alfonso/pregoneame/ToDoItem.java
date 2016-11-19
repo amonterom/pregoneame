@@ -22,6 +22,8 @@ public class ToDoItem {
 	public final static String DESCRIPCION = "descripcion";
 	public final static String TEMA = "tema";
 	public final static String DATE = "date";
+	//public final static String ELIMINAR = "eliminar";
+
 	public final static String FILENAME = "filename";
 
 	public final static SimpleDateFormat FORMAT = new SimpleDateFormat(

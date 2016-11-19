@@ -55,6 +55,8 @@ public class ToDoManagerActivity extends AppCompatActivity   {
     private Button buttonCultura;
     private Button buttonFestejo;
     private Button buttonOtros;
+    private Button buttonEliminar;
+
     public static String nuevalinea = System.getProperty("line.separator");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,26 +99,35 @@ public class ToDoManagerActivity extends AppCompatActivity   {
         //TODO - Create a new Adapter for the RecyclerView
         // specify an adapter (see also next example)
 mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
-    @Override public void onItemClick(ToDoItem item){
+    @Override public void onItemClick(final ToDoItem item){
        // Snackbar.make(ToDoManagerActivity.this.getCurrentFocus(), "Item " + item.getTitle()+ " Clicked", Snackbar.LENGTH_LONG).show();
 
 
-       // Toast toast = Toast.makeText(getApplicationContext(), "Titulo: " + item.getTitle() + nuevalinea + "Tema: " + item.getTema()+ nuevalinea +"Descripcion: " + nuevalinea + item.getDescripcion() +  nuevalinea + "Fecha: " + item.getDate(), Toast.LENGTH_SHORT);
-        //toast.show();
-
+        final String titulo = item.getTitle().toString();
+        System.out.println(" VALOR DE TITULO "+ titulo);
         AlertDialog.Builder builder = new AlertDialog.Builder(ToDoManagerActivity.this);
         builder.setMessage("Tema: " + item.getTema()+ nuevalinea +"Descripcion: " + nuevalinea + item.getDescripcion() +  nuevalinea + "Fecha: " + item.getDate())
                 .setTitle("Titulo: "+ item.getTitle())
                 .setCancelable(false)
-                .setNeutralButton("Aceptar",
+                .setNeutralButton("Eliminar",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
+                                mAdapter.clear();
+                                borrarItems(titulo);
+                                saveItems();
+                                Toast toast = Toast.makeText(getApplicationContext(),"Borrado con exito el pregón con Titulo : " + titulo, Toast.LENGTH_LONG);
+                                toast.show();
+
                             }
-                        });
+                        }).setPositiveButton("Cerrar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                         // metodo que se debe implementar
+                        dialog.cancel();
+                    }
+                });
         AlertDialog alert = builder.create();
         alert.show();
-
 
 
 
@@ -127,6 +138,24 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
     }
 
 });
+
+        buttonFestejo = (Button) findViewById(R.id.buttonFestejo);
+
+
+        buttonFestejo.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mAdapter.clear();
+                loadItemsFestejo();
+
+            }
+        });
+
+
+
+
+
+
         //TODO - Attach the adapter to the RecyclerView
     mRecyclerView.setAdapter(mAdapter);
 
@@ -454,6 +483,48 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
             }
         }
     }
+
+
+    // Load stored ToDoItems
+    private void borrarItems(String titulo) {
+        BufferedReader reader = null;
+        try {
+            FileInputStream fis = openFileInput(FILE_NAME);
+            reader = new BufferedReader(new InputStreamReader(fis));
+            System.out.println(" VALOR DE TITULO "+ titulo);
+            String title = null;
+            String descri= null;
+            String tema = null;
+            Date date = null;
+
+            while (null != (title = reader.readLine())) {
+                descri = reader.readLine();
+                tema = reader.readLine();
+                date = ToDoItem.FORMAT.parse(reader.readLine());
+                System.out.println(" VALOR DE TITLE "+ title);
+                if(title.toString().compareTo(titulo)!=0) {
+
+                    mAdapter.add(new ToDoItem(title, descri, Tema.valueOf(tema), date));
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != reader) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 
 
     // Save ToDoItems to file

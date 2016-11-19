@@ -61,8 +61,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
         mItems.clear();
         notifyDataSetChanged();
-
     }
+
+
 
 
 

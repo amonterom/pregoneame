@@ -8,6 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 public class Login extends AppCompatActivity {
     //COmponentes del layout
@@ -19,8 +26,13 @@ public class Login extends AppCompatActivity {
     private Button buttonAceptar;
     private Button buttonHome;
     private ImageView imageViewPregon;
+    private static final String FILE_NAME = "Login.txt";
+    private static final String TAG = "Lab-UserInterface";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -40,9 +52,16 @@ public class Login extends AppCompatActivity {
         buttonAceptar.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent acti2 = new Intent(Login.this, ToDoManagerActivity.class);
-                startActivity(acti2);
+                if(editTextUserResult.getText().toString().equals("amonterom") && editTextConResult.getText().toString().equals("28101994")) {
+                    Intent acti2 = new Intent(Login.this, ToDoManagerActivity.class);
+                    startActivity(acti2);
+                }
+                else{
 
+                    Toast toast = Toast.makeText(getApplicationContext(),"Usuario o contraseña incorrecta", Toast.LENGTH_LONG);
+                    toast.show();
+
+                }
             }
         });
 
@@ -56,4 +75,8 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+
+
+
 }

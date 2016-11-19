@@ -23,8 +23,9 @@
         android:layout_alignParentStart="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_alignBottom="@+id/TemaLabel"
-        android:textSize="18sp"
-        android:layout_height="match_parent">
+        android:textSize="12sp"
+        android:layout_height="match_parent"
+        android:textColor="@color/colorPrimaryDark">
 
     </TextView>
 
@@ -74,7 +75,7 @@
         android:layout_alignBaseline="@+id/TemaLabel"
         android:layout_alignBottom="@+id/TemaLabel"
         android:layout_alignParentEnd="true"
-        android:textColor="@android:color/background_dark">
+        android:textColor="@color/colorAccent">
     </TextView>
 
 </RelativeLayout>
