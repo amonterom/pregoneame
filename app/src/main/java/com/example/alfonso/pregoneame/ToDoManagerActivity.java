@@ -538,7 +538,6 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
             for (int idx = 0; idx < mAdapter.getItemCount(); idx++) {
 
                 writer.println(mAdapter.getItem(idx));
-
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -562,56 +561,5 @@ mAdapter = new ToDoAdapter(new ToDoAdapter.OnItemClickListener(){
 
 
 
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        if (id == R.id.log){
-            Intent acti = new Intent(ToDoManagerActivity.this, Login.class);
-            startActivity(acti);
-        }
-        else if (id == R.id.nav_deporte) {
-            // Handle the camera action
-        } else if (id == R.id.nav_cultura) {
-
-        } else if (id == R.id.nav_festejos) {
-
-        } else if (id == R.id.nav_otros) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-*/
 
 }

@@ -100,29 +100,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
             //TODO - Display Priority in a TextView
             dateView.setText(ToDoItem.FORMAT.format(toDoItem.getDate()));
 
-            // TODO - Display Time and Date.
-            // Hint - use ToDoItem.FORMAT.format(toDoItem.getDate()) to get date and time String
-            //statusView.setChecked(toDoItem.getStatus() == ToDoItem.Status.DONE);
 
-
-            // TODO - Set up Status CheckBox
-
-/*
-            statusView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView,
-                                             boolean isChecked) {
-
-
-                    // TODO - Set up and implement an OnCheckedChangeListener
-                    // is called when the user toggles the status checkbox
-    if(isChecked)
-        toDoItem.setStatus((ToDoItem.Status.DONE));
-                    else
-        toDoItem.setStatus(ToDoItem.Status.NOTDONE);
-
-                }});
-*/
 
             itemView.setOnClickListener(new View.OnClickListener() {
 

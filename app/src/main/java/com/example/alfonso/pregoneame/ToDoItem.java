@@ -95,8 +95,7 @@ public class ToDoItem {
 		mDate = date;
 	}
 
-	// Take a set of String data values and 
-	// package them for transport in an Intent
+
 
 	public static void packageIntent(Intent intent, String title,String des,Tema tema,
 									  String date) {

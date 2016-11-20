@@ -76,19 +76,17 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         String nombrez = pref.getString("opcion1","");
-        System.out.println("NOmbre "+ nombrez);
 
         nombre.setText(nombrez);
 
         String paisz = pref.getString("opcion2","");
 
-        System.out.println("Pais "+ paisz);
+
 
         pais.setText(paisz);
 
 
-     //   cargarPreferencias();
-      //  guardarPreferencias();
+
         //TODO - Get a reference to the RecyclerView
         mRecyclerView=(RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -207,28 +205,6 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
 
     }
 
-    public void cargarPreferencias(){
-        SharedPreferences mispreferencias = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
-        String nombrez = mispreferencias.getString("opcion1","");
-        System.out.println("NOmbre "+ nombrez);
-        nombre.setText(mispreferencias.getString("opcion1",""));
-        pais.setText(mispreferencias.getString("opcion2",""));
-
-
-    }
-
-    public void guardarPreferencias(){
-
-        SharedPreferences mispreferencias = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = mispreferencias.edit();
-        String nombrez =  nombre.getText().toString();
-        String paisz = pais.getText().toString();
-        System.out.println("NOmbre "+ nombrez);
-        System.out.println("PAIS "+ paisz);
-        editor.putString("opcion1",nombrez);
-        editor.putString("opcion2",paisz);
-        editor.commit();
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -274,7 +250,7 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
         super.onCreateOptionsMenu(menu);
 
         menu.add(Menu.NONE, MENU_PREFER, Menu.NONE, "Preferencias");
- //       menu.add(Menu.NONE, MENU_DUMP, Menu.NONE, "Dump to log");
+
         return true;
     }
 
@@ -531,57 +507,5 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
     }
 
 
-
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        if (id == R.id.log){
-            Intent acti = new Intent(ToDoManagerActivity.this, Login.class);
-            startActivity(acti);
-        }
-        else if (id == R.id.nav_deporte) {
-            // Handle the camera action
-        } else if (id == R.id.nav_cultura) {
-
-        } else if (id == R.id.nav_festejos) {
-
-        } else if (id == R.id.nav_otros) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-*/
 
 }
