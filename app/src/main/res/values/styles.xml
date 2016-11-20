@@ -21,4 +21,12 @@
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="PreferencesTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:background">#ff060a7d</item>
+        <item name="android:textColor">#ff0000</item>
+    </style>
+
+
+
 </resources>
+

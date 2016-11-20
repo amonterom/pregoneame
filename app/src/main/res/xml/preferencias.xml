@@ -1,0 +1,61 @@
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+
+
+
+    <PreferenceCategory
+        android:title="A cerca de la aplicación">
+        <PreferenceScreen
+            android:title="Visitar la web para mas información"
+            >
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.android.com" />
+
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Datos de Usuario">
+
+        <EditTextPreference
+            android:key="opcion1"
+            android:title="Nombre de usuario"
+            android:summary="Identifica al usuario de la aplicación" />
+
+        <!-- The visual style of a child is defined by this styled theme attribute. -->
+
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="Datos de Paises">
+
+        <ListPreference
+            android:key="opcion2"
+            android:title="País"
+            android:summary="País del usuario"
+            android:dialogTitle="Indicar país"
+            android:entries="@array/pais"
+            android:entryValues="@array/codigopais"
+
+
+
+            />
+
+        <!-- The visual style of a child is defined by this styled theme attribute. -->
+
+
+    </PreferenceCategory>
+
+    <Preference
+        android:key="button"
+
+        android:summary="SALIR"/>
+</PreferenceScreen>

@@ -1,8 +1,11 @@
 package com.example.alfonso.pregoneame;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -20,6 +23,7 @@ import android.view.MenuItem;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -43,8 +47,8 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
     private static final String TAG = "Lab-UserInterface";
 
     // IDs for menu items
-    private static final int MENU_DELETE = Menu.FIRST;
-    private static final int MENU_DUMP = Menu.FIRST + 1;
+    private static final int MENU_PREFER = Menu.FIRST;
+
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -55,6 +59,9 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
     private Button buttonFestejo;
     private Button buttonOtros;
     private Button buttonSalir;
+    private TextView nombre;
+    private TextView pais;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +69,26 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
         setContentView(R.layout.activity_to_do_manager_cliente);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        nombre = (TextView) findViewById(R.id.textViewNombre);
+        pais = (TextView) findViewById(R.id.textViewPais);
 
 
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String nombrez = pref.getString("opcion1","");
+        System.out.println("NOmbre "+ nombrez);
+
+        nombre.setText(nombrez);
+
+        String paisz = pref.getString("opcion2","");
+
+        System.out.println("Pais "+ paisz);
+
+        pais.setText(paisz);
+
+
+     //   cargarPreferencias();
+      //  guardarPreferencias();
         //TODO - Get a reference to the RecyclerView
         mRecyclerView=(RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -182,6 +207,29 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
 
     }
 
+    public void cargarPreferencias(){
+        SharedPreferences mispreferencias = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
+        String nombrez = mispreferencias.getString("opcion1","");
+        System.out.println("NOmbre "+ nombrez);
+        nombre.setText(mispreferencias.getString("opcion1",""));
+        pais.setText(mispreferencias.getString("opcion2",""));
+
+
+    }
+
+    public void guardarPreferencias(){
+
+        SharedPreferences mispreferencias = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = mispreferencias.edit();
+        String nombrez =  nombre.getText().toString();
+        String paisz = pais.getText().toString();
+        System.out.println("NOmbre "+ nombrez);
+        System.out.println("PAIS "+ paisz);
+        editor.putString("opcion1",nombrez);
+        editor.putString("opcion2",paisz);
+        editor.commit();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -206,7 +254,6 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
 
         // Load saved ToDoItems, if necessary
         if (mAdapter.getItemCount() == 0)
-
             loadItems();
             saveItems();
     }
@@ -226,26 +273,29 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-//        menu.add(Menu.NONE, MENU_DELETE, Menu.NONE, "Delete all");
+        menu.add(Menu.NONE, MENU_PREFER, Menu.NONE, "Preferencias");
  //       menu.add(Menu.NONE, MENU_DUMP, Menu.NONE, "Dump to log");
         return true;
     }
-/*
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case MENU_DELETE:
-                mAdapter.clear();
-                return true;
-            case MENU_DUMP:
-                dump();
+            case MENU_PREFER:
+                getFragmentManager().beginTransaction()
+                        .replace(android.R.id.content, new fragmentPreferencias())
+                        .commit();
+
+
+
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-*/
+
     private void dump() {
 
         for (int i = 0; i < mAdapter.getItemCount(); i++) {
