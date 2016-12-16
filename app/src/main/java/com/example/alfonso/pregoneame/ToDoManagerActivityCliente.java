@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -36,7 +37,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import com.example.alfonso.pregoneame.ToDoItem.Tema;
 public class ToDoManagerActivityCliente extends AppCompatActivity   {
 
@@ -154,7 +158,7 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
             @Override
             public void onClick(View v) {
                 mAdapter.clear();
-                loadItemsFestejo();
+                new loadItemsFest().execute(9);
 
             }
         });
@@ -174,7 +178,9 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
             @Override
             public void onClick(View v) {
                 mAdapter.clear();
-                loadItemsDeporte();
+                new loadItemsDep().execute(10);
+
+
             }
         });
         buttonCultura = (Button) findViewById(R.id.buttonCultura);
@@ -183,7 +189,8 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
             @Override
             public void onClick(View v) {
                 mAdapter.clear();
-                loadItemsCultura();
+                new loadItemsCult().execute(11);
+
             }
         });
         buttonOtros = (Button) findViewById(R.id.buttonOtros);
@@ -192,7 +199,8 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
             @Override
             public void onClick(View v) {
                 mAdapter.clear();
-                loadItemsOtros();
+                new loadItemsOt().execute(12);
+
             }
         });
 
@@ -319,158 +327,284 @@ public class ToDoManagerActivityCliente extends AppCompatActivity   {
 
 
 
-    /*-------------------------------*/
 
-    private void loadItemsDeporte() {
-        BufferedReader reader = null;
-        try {
-            FileInputStream fis = openFileInput(FILE_NAME);
-            reader = new BufferedReader(new InputStreamReader(fis));
+    class loadItemsCult extends AsyncTask<Integer,Integer, List<ToDoItem>> {
+        //
+        //  Parametros, Progreso y Resultado
+        @Override
+        protected void onPreExecute() {
 
-            String title = null;
-            String descri= null;
-            String tema = null;
-            Date date = null;
+        }
 
-            while (null != (title = reader.readLine())) {
-                descri = reader.readLine();
-                tema = reader.readLine();
-                date = ToDoItem.FORMAT.parse(reader.readLine());
-                if(tema.toString().equals("Deporte")) {
-                    mAdapter.add(new ToDoItem(title, descri, Tema.valueOf(tema), date));
+        @Override
+        protected List<ToDoItem> doInBackground(Integer ...ints) {
+            List<ToDoItem> lista =new ArrayList<ToDoItem>();
+            BufferedReader reader = null;
+            try {
+                FileInputStream fis = openFileInput(FILE_NAME);
+                reader = new BufferedReader(new InputStreamReader(fis));
+
+                String title = null;
+                String descri= null;
+                String tema = null;
+                Date date = null;
+
+                while (null != (title = reader.readLine())) {
+                    descri = reader.readLine();
+                    tema = reader.readLine();
+                    date = ToDoItem.FORMAT.parse(reader.readLine());
+                    if(tema.toString().equals("Cultura")) {
+                        lista.add(new ToDoItem(title, descri, Tema.valueOf(tema), date));
+                    }
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } finally {
+                if (null != reader) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+            return lista;
+        }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } finally {
-            if (null != reader) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
+        }
+
+        @Override
+        protected void onPostExecute(List<ToDoItem> result) {
+            for (int i=0; i<result.size();i++){
+                mAdapter.add(result.get(i));
+
+
             }
         }
+
     }
 
-    // Load stored ToDoItems
-    private void loadItemsCultura() {
-        BufferedReader reader = null;
-        try {
-            FileInputStream fis = openFileInput(FILE_NAME);
-            reader = new BufferedReader(new InputStreamReader(fis));
 
-            String title = null;
-            String descri= null;
-            String tema = null;
-            Date date = null;
+/*---------------------------------------------------------------------------------*/
 
-            while (null != (title = reader.readLine())) {
-                descri = reader.readLine();
-                tema = reader.readLine();
-                date = ToDoItem.FORMAT.parse(reader.readLine());
-                if(tema.toString().equals("Cultura")) {
-                    mAdapter.add(new ToDoItem(title, descri, Tema.valueOf(tema), date));
+
+    class loadItemsDep extends AsyncTask<Integer,Integer, List<ToDoItem>> {
+        //
+        //  Parametros, Progreso y Resultado
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected List<ToDoItem> doInBackground(Integer ...ints) {
+            List<ToDoItem> lista =new ArrayList<ToDoItem>();
+            BufferedReader reader = null;
+            try {
+                FileInputStream fis = openFileInput(FILE_NAME);
+                reader = new BufferedReader(new InputStreamReader(fis));
+
+                String title = null;
+                String descri= null;
+                String tema = null;
+                Date date = null;
+
+                while (null != (title = reader.readLine())) {
+                    descri = reader.readLine();
+                    tema = reader.readLine();
+                    date = ToDoItem.FORMAT.parse(reader.readLine());
+                    if(tema.toString().equals("Deporte")) {
+                        lista.add(new ToDoItem(title, descri, Tema.valueOf(tema), date));
+                    }
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } finally {
+                if (null != reader) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+            return lista;
+        }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } finally {
-            if (null != reader) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
+        }
+
+        @Override
+        protected void onPostExecute(List<ToDoItem> result) {
+            for (int i=0; i<result.size();i++){
+                mAdapter.add(result.get(i));
+
+
             }
         }
+
     }
 
-    // Load stored ToDoItems
-    private void loadItemsFestejo() {
-        BufferedReader reader = null;
-        try {
-            FileInputStream fis = openFileInput(FILE_NAME);
-            reader = new BufferedReader(new InputStreamReader(fis));
 
-            String title = null;
-            String descri= null;
-            String tema = null;
-            Date date = null;
+/*---------------------------------------------------------------------------------*/
 
-            while (null != (title = reader.readLine())) {
-                descri = reader.readLine();
-                tema = reader.readLine();
-                date = ToDoItem.FORMAT.parse(reader.readLine());
-                if(tema.toString().equals("Festejo")) {
-                    mAdapter.add(new ToDoItem(title, descri, Tema.valueOf(tema), date));
+
+
+
+
+    class loadItemsFest extends AsyncTask<Integer,Integer, List<ToDoItem>> {
+        //
+        //  Parametros, Progreso y Resultado
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected List<ToDoItem> doInBackground(Integer ...ints) {
+            List<ToDoItem> lista =new ArrayList<ToDoItem>();
+            BufferedReader reader = null;
+            try {
+                FileInputStream fis = openFileInput(FILE_NAME);
+                reader = new BufferedReader(new InputStreamReader(fis));
+
+                String title = null;
+                String descri= null;
+                String tema = null;
+                Date date = null;
+
+                while (null != (title = reader.readLine())) {
+                    descri = reader.readLine();
+                    tema = reader.readLine();
+                    date = ToDoItem.FORMAT.parse(reader.readLine());
+                    if(tema.toString().equals("Festejo")) {
+                        lista.add(new ToDoItem(title, descri, Tema.valueOf(tema), date));
+                    }
+                }
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } finally {
+                if (null != reader) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+            return lista;
+        }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } finally {
-            if (null != reader) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
+        }
+
+        @Override
+        protected void onPostExecute(List<ToDoItem> result) {
+            for (int i=0; i<result.size();i++){
+                mAdapter.add(result.get(i));
+
+
             }
         }
+
     }
 
-    // Load stored ToDoItems
-    private void loadItemsOtros() {
-        BufferedReader reader = null;
-        try {
-            FileInputStream fis = openFileInput(FILE_NAME);
-            reader = new BufferedReader(new InputStreamReader(fis));
 
-            String title = null;
-            String descri= null;
-            String tema = null;
-            Date date = null;
+/*---------------------------------------------------------------------------------*/
 
-            while (null != (title = reader.readLine())) {
-                descri = reader.readLine();
-                tema = reader.readLine();
-                date = ToDoItem.FORMAT.parse(reader.readLine());
-                if(tema.toString().equals("Otros")) {
-                    mAdapter.add(new ToDoItem(title, descri, Tema.valueOf(tema), date));
+
+    class loadItemsOt extends AsyncTask<Integer,Integer, List<ToDoItem>> {
+        //
+        //  Parametros, Progreso y Resultado
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected List<ToDoItem> doInBackground(Integer ...ints) {
+            List<ToDoItem> lista =new ArrayList<ToDoItem>();
+            BufferedReader reader = null;
+            try {
+                FileInputStream fis = openFileInput(FILE_NAME);
+                reader = new BufferedReader(new InputStreamReader(fis));
+
+                String title = null;
+                String descri= null;
+                String tema = null;
+                Date date = null;
+
+                while (null != (title = reader.readLine())) {
+                    descri = reader.readLine();
+                    tema = reader.readLine();
+                    date = ToDoItem.FORMAT.parse(reader.readLine());
+                    if(tema.toString().equals("Otros")) {
+                        lista.add(new ToDoItem(title, descri, Tema.valueOf(tema), date));
+                    }
+                }
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } finally {
+                if (null != reader) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+            return lista;
+        }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } finally {
-            if (null != reader) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
+        }
+
+        @Override
+        protected void onPostExecute(List<ToDoItem> result) {
+            for (int i=0; i<result.size();i++){
+                mAdapter.add(result.get(i));
+
+
             }
         }
+
     }
+
+
+
+
+
 
 
     // Save ToDoItems to file
